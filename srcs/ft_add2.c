@@ -62,6 +62,45 @@ int					ft_key_rgb(int keycode, t_show *sh)
 	return (ft_key_opt(keycode, sh));
 }
 
+
+
+
+
+
+int max( int t1, int t2 ) {
+      return ( t1 > t2 ? t1 : t2 );
+}
+
+
+
+
+
+
+
+
+
+void			ft_wire2(t_show *sh, t_point *b, t_point *a)
+{
+	int			i;
+	int			j;
+
+	if ((b->y - a->y) == 0)
+	{
+		ft_putstr("выход из условия в wire");
+		return ;
+	}
+	i = a->y;
+	j = ((b->x - a->x) * (i - a->x)) / (b->y - a->y) + a->y;
+	while (i < b->y)
+	{
+		while (j <= ((b->x - a->x) * (i + 1 - a->x) / (b->y - a->y)) + a->y)
+			ft_my_pixel_put(sh, i, j++, ft_color(sh, b, a, i));
+		while (j > ((b->x - a->x) * (i + 1 - a->x) / (b->y - a->y)) + a->y)
+			ft_my_pixel_put(sh, i, j--, ft_color(sh, b, a, i));
+		i++;
+	}
+}
+
 void			ft_par_persp(t_show *sh, int i, int j)
 {
 	int			x;
@@ -69,13 +108,23 @@ void			ft_par_persp(t_show *sh, int i, int j)
 	t_point		***c;
 
 	c = sh->point;
-	
+
 	c[i][j]->x = (sh->zoom * (j)  / (c[i][j]->size_x +
 				c[i][j]->size_y)) + sh->tight2;
 	c[i][j]->y = (sh->zoom * (i) / (c[i][j]->size_x +
-				c[i][j]->size_y)) + sh->tight;		
+				c[i][j]->size_y)) + sh->tight;
 	if (j > 0)
+	{
 		ft_wire(sh, c[i][j], c[i][j - 1]);
+	//	if (i > 0)
+//			ft_wire(sh, c[i][j], c[i + 1][j + 1]);
+	}
 	if (i > 0)
-		ft_wire(sh, c[i][j], c[i - 1][j]);
+	//	if (j > 0)
+	{
+		//line(sh->mlx, sh->win, c[i][j]->x, c[i][j]->y, c[i - 1][j]->x, c[i - 1][j]->y);
+		ft_wire2(sh,c[i][j], c[i - 1][j]);
+
+		// ft_putstr("vertic\n");
+	}
 }
