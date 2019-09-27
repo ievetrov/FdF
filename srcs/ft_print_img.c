@@ -55,12 +55,19 @@ void			ft_iso_persp(t_show *sh, int i, int j)
 
 	c = sh->point;
 	
-	c[i][j]->x = (sh->zoom * (i + j)  / (c[i][j]->size_x +
+	c[i][j]->x = (sh->zoom * (j - i) * cos(0.523599) / (c[i][j]->size_x +
 				c[i][j]->size_y)) + sh->tight2;
-	c[i][j]->y = ((sh->zoom * (c[i][j]->size_x + i - j) /
-				(c[i][j]->size_x + c[i][j]->size_y) - (c[i][j]->z)
-				* sh->deep) + sh->tight);		
-	c[i][j]->y = c[i][j]->y / 2;
+
+	c[i][j]->y = ((sh->zoom * (-c[i][j]->z) + i + j) * sin(0.523599)  / (c[i][j]->size_x +
+				c[i][j]->size_y)) + sh->tight;	
+
+	// c[i][j]->x = (sh->zoom * (i + j)  / (c[i][j]->size_x +
+	// 			c[i][j]->size_y)) + sh->tight2;
+	// c[i][j]->y = ((sh->zoom * (c[i][j]->size_x + i - j) /
+	// 			(c[i][j]->size_x + c[i][j]->size_y) - (c[i][j]->z)
+	// 			* sh->deep) + sh->tight);		
+
+	// c[i][j]->y = c[i][j]->y / 2;
 	if (j > 0)
 		ft_wire(sh, c[i][j], c[i][j - 1]);
 	if (i > 0)

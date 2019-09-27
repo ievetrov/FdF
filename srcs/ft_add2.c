@@ -72,7 +72,7 @@ void			ft_par_persp(t_show *sh, int i, int j)
 	
 	c[i][j]->x = (sh->zoom * (j)  / (c[i][j]->size_x +
 				c[i][j]->size_y)) + sh->tight2;
-	c[i][j]->y = (sh->zoom * (i) /(c[i][j]->size_x +
+	c[i][j]->y = (sh->zoom * (i) / (c[i][j]->size_x +
 				c[i][j]->size_y)) + sh->tight;		
 	if (j > 0)
 		ft_wire(sh, c[i][j], c[i][j - 1]);
