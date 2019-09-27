@@ -64,9 +64,9 @@ static	t_point		*ft_new_coord(int x, int y, int z, t_map *map)
 		return (NULL);
 	point->size_x = (map->x);
 	point->size_y = (map->y);
-	point->z = z;
 	point->x = x - point->size_x / 2;
 	point->y = y - map->y / 2;
+	point->z = z;
 	return (point);
 }
 
